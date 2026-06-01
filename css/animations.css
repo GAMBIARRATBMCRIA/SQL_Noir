@@ -1,0 +1,269 @@
+/* ========================================
+   SQL Noir — Animations
+   Keyframes, transitions, and micro-interactions
+   ======================================== */
+
+/* ---- Typewriter Cursor Blink ---- */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ---- Ambient Glow Pulse ---- */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px var(--accent-glow),
+                0 0 16px rgba(240, 192, 64, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 16px var(--accent-glow-strong),
+                0 0 32px var(--accent-glow);
+  }
+}
+
+/* ---- Subtle Float ---- */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* ---- Fade In ---- */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ---- Fade In Up ---- */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---- Fade In Down ---- */
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---- Slide In from Right ---- */
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ---- Slide In from Left ---- */
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ---- Scale In (Evidence Reveal) ---- */
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ---- Evidence Unlock ---- */
+@keyframes evidence-unlock {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) rotate(-5deg);
+    filter: brightness(3) blur(4px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05) rotate(1deg);
+    filter: brightness(1.5) blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+    filter: brightness(1) blur(0);
+  }
+}
+
+/* ---- Shake (attention) ---- */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-4px); }
+  30% { transform: translateX(4px); }
+  45% { transform: translateX(-3px); }
+  60% { transform: translateX(3px); }
+  75% { transform: translateX(-1px); }
+  90% { transform: translateX(1px); }
+}
+
+/* ---- Scan Line (CRT effect for terminal) ---- */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* ---- Flicker (noir light) ---- */
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.8; }
+  94% { opacity: 1; }
+  96% { opacity: 0.9; }
+  97% { opacity: 1; }
+}
+
+/* ---- Text Reveal (word by word) ---- */
+@keyframes text-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* ---- Ambient Particles ---- */
+@keyframes particle-float {
+  0% {
+    transform: translateY(100vh) translateX(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+    transform: translateY(90vh) translateX(10px) scale(1);
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-10vh) translateX(-20px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* ---- Progress Bar Fill ---- */
+@keyframes progress-fill {
+  from { width: 0; }
+}
+
+/* ---- Notification Pop ---- */
+@keyframes notification-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+  60% {
+    transform: translateY(-5px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ---- Loading Dots ---- */
+@keyframes loading-dots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60%, 100% { content: '...'; }
+}
+
+/* ---- Spin ---- */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ---- Border Glow Trace ---- */
+@keyframes border-trace {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ========================================
+   Utility Classes
+   ======================================== */
+
+.anim-fade-in {
+  animation: fade-in var(--transition-normal) both;
+}
+
+.anim-fade-in-up {
+  animation: fade-in-up var(--transition-slow) both;
+}
+
+.anim-fade-in-down {
+  animation: fade-in-down var(--transition-normal) both;
+}
+
+.anim-slide-right {
+  animation: slide-in-right var(--transition-slow) both;
+}
+
+.anim-slide-left {
+  animation: slide-in-left var(--transition-slow) both;
+}
+
+.anim-scale-in {
+  animation: scale-in var(--transition-slow) both;
+}
+
+.anim-shake {
+  animation: shake 0.5s ease both;
+}
+
+.anim-glow {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+.anim-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.anim-flicker {
+  animation: flicker 8s linear infinite;
+}
+
+/* Stagger delays for sequential animations */
+.anim-delay-1 { animation-delay: 100ms; }
+.anim-delay-2 { animation-delay: 200ms; }
+.anim-delay-3 { animation-delay: 300ms; }
+.anim-delay-4 { animation-delay: 400ms; }
+.anim-delay-5 { animation-delay: 500ms; }
+.anim-delay-6 { animation-delay: 600ms; }
+.anim-delay-7 { animation-delay: 700ms; }
+.anim-delay-8 { animation-delay: 800ms; }
