@@ -12,6 +12,8 @@ import { case01 } from './cases/case_01.js';
 import { case02 } from './cases/case_02.js';
 import { case03 } from './cases/case_03.js';
 import { case04 } from './cases/case_04.js';
+import { case05 } from './cases/case05_chat.js';
+import { case06 } from './cases/case06_chat.js';
 
 
 // ---- App State ----
@@ -24,6 +26,8 @@ const availableCases = [
   case02,
   case03,
   case04,
+  case05,
+  case06,
 ];
 
 // ---- Entry Point ----
