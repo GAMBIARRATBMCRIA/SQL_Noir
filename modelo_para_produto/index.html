@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="SQL Noir — Um jogo investigativo onde você resolve um caso criminal usando consultas SQL como ferramenta de investigação.">
+  <meta name="theme-color" content="#0a0a0f">
+  <title>SQL Noir — Arquivos</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/terminal.css">
+  <link rel="stylesheet" href="css/narrative.css">
+  <link rel="stylesheet" href="css/evidence.css">
+
+  <!-- SQL.js (SQLite via WebAssembly) -->
+  <script src="https://sql.js.org/dist/sql-wasm.js"></script>
+</head>
+
+<body>
+
+  <!-- ============================================
+       AMBIENT PARTICLES
+       ============================================ -->
+  <div class="particles-container" id="particles"></div>
+
+  <!-- ============================================
+       CASE SELECTION SCREEN (HUB)
+       ============================================ -->
+  <div class="case-selection-screen" id="case-selection-screen">
+    <div class="case-selection-content">
+      <h1 class="case-selection-title">Arquivos da Agência</h1>
+      <p class="case-selection-subtitle">Selecione um caso para investigar</p>
+      <div class="case-list" id="case-list">
+        <!-- Case buttons injected by main.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       INTRO SCREEN
+       ============================================ -->
+  <div class="intro-screen hidden" id="intro-screen">
+    <div class="intro-content">
+      <div class="intro-badge">Investigação Digital</div>
+
+      <h1 class="intro-title">
+        SQL <span>Noir</span>
+      </h1>
+
+      <p class="intro-subtitle" id="intro-briefing-text">
+        <!-- Populated by main.js -->
+      </p>
+
+      <div class="intro-briefing" id="intro-briefing-details">
+        <!-- Populated by main.js -->
+      </div>
+
+      <button class="intro-start-btn" id="intro-start-btn">
+        ▶ Acessar banco de dados
+      </button>
+
+      <div class="intro-loading" id="intro-loading">
+        ⟳ Carregando banco de dados...
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       GAME CONTAINER
+       ============================================ -->
+  <div class="game-container" id="game-container">
+
+    <!-- ---- Header ---- -->
+    <header class="game-header">
+      <div class="header-brand">
+        <button class="btn-back" id="btn-back" title="Voltar aos Arquivos">← Arquivos</button>
+        <span class="header-logo anim-flicker">SQL Noir</span>
+        <span class="header-case" id="header-case-title">Carregando...</span>
+      </div>
+      <div class="header-actions">
+        <div class="header-progress">
+          <span>Progresso</span>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+          </div>
+          <span id="progress-text">0/9</span>
+        </div>
+        <button class="btn-evidence" id="btn-evidence">
+          📋 Evidências <span class="badge" id="evidence-badge">0</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ---- Narrative Panel ---- -->
+    <aside class="narrative-panel">
+      <div class="narrative-header">
+        <div class="narrative-act" id="narrative-act-label">Briefing</div>
+        <div class="narrative-act-title" id="narrative-act-title">O Caso</div>
+      </div>
+      <div class="narrative-content" id="narrative-content">
+        <div class="narrative-text" id="narrative-text">
+          <!-- Narrative text injected by narrative.js -->
+        </div>
+      </div>
+      <div class="narrative-progress" id="narrative-progress">
+        <!-- Progress dots injected by narrative.js -->
+      </div>
+    </aside>
+
+    <!-- ---- Terminal Panel ---- -->
+    <main class="terminal-panel">
+      <!-- Editor -->
+      <div class="terminal-editor">
+        <div class="terminal-toolbar">
+          <div class="terminal-toolbar-left">
+            <div class="terminal-dots">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+            </div>
+            <span class="terminal-title" id="terminal-title">Terminal SQL</span>
+          </div>
+          <div class="terminal-toolbar-right">
+            <button class="btn-history" id="btn-history" title="Histórico de consultas">
+              ⏱ Histórico
+            </button>
+            <button class="btn-run" id="btn-run" title="Executar consulta">
+              ▶ Executar <span class="shortcut">(Ctrl+Enter)</span>
+            </button>
+          </div>
+        </div>
+        <div class="sql-input-wrapper">
+          <pre class="sql-line-numbers" id="sql-line-numbers">1</pre>
+          <textarea class="sql-input" id="sql-input"
+            placeholder="Digite sua consulta SQL aqui...  (ex: SELECT * FROM funcionarios)" spellcheck="false"
+            autocapitalize="off" autocomplete="off"></textarea>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="terminal-results" id="terminal-results">
+        <div class="results-welcome" id="results-welcome">
+          <span class="welcome-icon">🔍</span>
+          <div class="welcome-title">Terminal pronto para investigação</div>
+          <div class="welcome-hint" id="welcome-hint">
+            Escreva consultas SQL para explorar os dados.<br>
+            Use a barra de tabelas abaixo para ver os registros disponíveis.
+          </div>
+        </div>
+
+        <!-- History Panel (hidden by default) -->
+        <div class="history-panel" id="history-panel">
+          <div class="history-title">Histórico de Consultas</div>
+          <div id="history-list"></div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ---- Schema Explorer Bar ---- -->
+    <nav class="schema-bar" id="schema-bar">
+      <span class="schema-label">📂 Tabelas</span>
+      <!-- Table buttons injected by main.js -->
+    </nav>
+
+    <!-- Schema Detail Popup -->
+    <div class="schema-detail" id="schema-detail">
+      <div class="schema-detail-title">
+        <span id="schema-detail-table-name"></span>
+        <span class="schema-detail-close">&times;</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Campo</th>
+            <th>Tipo</th>
+            <th>Descrição</th>
+          </tr>
+        </thead>
+        <tbody id="schema-detail-body">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============================================
+       EVIDENCE OVERLAY (sidebar)
+       ============================================ -->
+  <div class="evidence-overlay" id="evidence-overlay">
+    <div class="evidence-backdrop"></div>
+    <div class="evidence-sidebar">
+      <div class="evidence-header">
+        <h2 class="evidence-title">📋 Evidências</h2>
+        <button class="evidence-close" id="evidence-close">&times;</button>
+      </div>
+      <div class="evidence-counter" id="evidence-counter">
+        <span class="found">0</span> de 9 evidências encontradas
+      </div>
+      <div class="evidence-list" id="evidence-list">
+        <!-- Evidence cards injected by main.js -->
+      </div>
+      <button class="btn-accuse hidden" id="btn-accuse">
+        ⚖️ Fazer Acusação
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================
+       ACCUSATION MODAL
+       ============================================ -->
+  <div class="accusation-modal" id="accusation-modal">
+    <div class="accusation-card">
+      <div class="accusation-title">⚖️ Acusação Final</div>
+      <div class="accusation-question" id="accusation-question">
+        Com base nas evidências coletadas, quem é o responsável?
+      </div>
+      <div class="accusation-suspects" id="accusation-suspects">
+        <!-- Suspect buttons injected by main.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       TOAST NOTIFICATIONS
+       ============================================ -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ============================================
+       MAIN SCRIPT
+       ============================================ -->
+  <script type="module" src="js/main.js"></script>
+
+</body>
+
+</html>
