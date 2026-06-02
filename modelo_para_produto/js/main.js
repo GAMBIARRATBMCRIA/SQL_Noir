@@ -22,12 +22,13 @@ let currentCase = null;
 
 // Mock list of cases available in the game
 const availableCases = [
-  case01,
   case02,
-  case03,
-  case04,
   case05,
   case06,
+  case01,
+  case03,
+  case04
+  
 ];
 
 // ---- Entry Point ----
