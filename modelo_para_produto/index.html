@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="css/narrative.css">
   <link rel="stylesheet" href="css/evidence.css">
 
+
   <!-- SQL.js (SQLite via WebAssembly) -->
   <script src="https://sql.js.org/dist/sql-wasm.js"></script>
 </head>
@@ -79,7 +80,8 @@
     <!-- ---- Header ---- -->
     <header class="game-header">
       <div class="header-brand">
-        <button class="btn-back" id="btn-back" title="Voltar aos Arquivos">← Arquivos</button>
+        <button class="btn-back" id="btn-back" title="Voltar aos Arquivos">← <span
+            class="hide-mobile">Arquivos</span></button>
         <span class="header-logo anim-flicker">SQL Noir</span>
         <span class="header-case" id="header-case-title">Carregando...</span>
       </div>
@@ -119,19 +121,19 @@
       <div class="terminal-editor">
         <div class="terminal-toolbar">
           <div class="terminal-toolbar-left">
-            <div class="terminal-dots">
+            <div class="terminal-dots hide-mobile">
               <span class="terminal-dot red"></span>
               <span class="terminal-dot yellow"></span>
               <span class="terminal-dot green"></span>
             </div>
-            <span class="terminal-title" id="terminal-title">Terminal SQL</span>
+            <span class="terminal-title hide-mobile" id="terminal-title">Terminal SQL</span>
           </div>
           <div class="terminal-toolbar-right">
             <button class="btn-history" id="btn-history" title="Histórico de consultas">
               ⏱ Histórico
             </button>
             <button class="btn-run" id="btn-run" title="Executar consulta">
-              ▶ Executar <span class="shortcut">(Ctrl+Enter)</span>
+              ▶ <span class="hide-mobile">Exe</span><span class="shortcut hide-mobile">(Ctrl+Enter)</span>
             </button>
           </div>
         </div>
